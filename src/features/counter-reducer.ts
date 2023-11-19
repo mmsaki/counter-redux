@@ -23,20 +23,14 @@ type CounterAction =
 
 const counterReducer = createReducer({ count: 0 }, (builder) => {
   builder.addCase(increment, (state, action) => {
-    state.count++;
+    state.count += action.payload;
+  });
+
+  builder.addCase(decrement, (state, action) => {
+    state.count -= action.payload;
+  });
+
+  builder.addCase(reset, (state, action) => {
+    state.count = 0;
   });
 });
-
-export const reducer = (state: CounterState, action: CounterAction) => {
-  if (action.type === increment.type) {
-    return { count: state.count + action.payload };
-  }
-  if (action.type === decrement.type) {
-    return { count: state.count - action.payload };
-  }
-  if (action.type === reset.type) {
-    return { count: 0 };
-  }
-
-  return state;
-};
